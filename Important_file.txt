@@ -1,0 +1,511 @@
+C:\WINDOWS\system32\drivers\etc\hosts
+
+
+
+SRM INstall
+
+We started getting SRM 4.0 installs.
+
+ 
+
+Here are some basic procedures:
+
+ 
+
+1)Checkout SRM properties into home directory (right now it is not working from all test servers because svn was not up to date version, so for now you can checkout from secdevapp06)
+
+Run this command in existing install_srm_4.0 in your home directory
+
+svn switch http://devsvn.gspt.net/svn/sharedservices/install_srm/trunk
+
+Or
+
+Remove install_srm_4.0 completely and then run this command in your home directory.
+
+svn co http://devsvn.gspt.net/svn/sharedservices/install_srm/trunk install_srm_4.0
+
+
+2)Then go to admin server and then cd to your home dir / install_srm_4.0 directory where you checked out properties to.
+
+
+3)Then run below command...You must change highlighted in Red parameters when you install it, get environment,store and ear file from the email.
+
+./install-srm.sh deploy -Ddomain=tst02 -Dapp.properties=cmus -Dear.file=/home/build/webdev/cmus_srm/gsi-clubmc-us-webstore-ear-1.2.1-SRM_FR_799-20120515.181347-1.ear 
+	
+
+4)Now it asks for only one prompt for missing properties.
+
+ 
+
+
+5)Once Build installed successfully, then use same ear file to install Dashboard install by passing below command. See highlighted in yellow where we specify for dashboard install.
+
+./install-srm.sh deploy -Ddomain=euststplo01 -Dapp.properties=rlde-dash -Dear.file=/home/build/webdev/rlde_srm/gsi-polo-de-webstore-ear-1.0.0-b-10.ear
+
+
+
+6Then unzip content in content location and then Hup instances which will complete the install the build.
+
+ 
+
+**** There are special instructions when install a SRM 4.0 build for first time, I tried it but it is not working as of now.
+
+  
+
+
+################################################################################
+
+Query For Campaigns End/live:s
+ 
+
+
+For CMS Campaigns:
+
+select * from cms_campaign where campaign_name like 'Levi SF Carousel Promo%'
+select * from cms_campaign where campaign_name like 'NAME%'
+
+update cms_campaign set status ='A' where campaign_id =
+
+Promotions:
+UPDATE catalog_entry SET status = 'A', modified_date = SYSDATE WHERE catalog_entry_id =
+UPDATE catalog_entry SET status = 'A', modified_date = SYSDATE WHERE status = 'APP'
+==================================================================================================================
+
+
+
+
+
+CMS TEMPLATE:
+select * from cms_template where store_code = 'DSP' and template_name = 'dsp_content_giftCertificates_1_v1'
+update cms_template set status = 'A' where store_code = 'DSP' and template_name = 'dsp_content_giftCertificates_1_v1'
+
+/WEB-INF/views/cms/include/	rlfr-header-promo.jsp	RLFR	A	18-SEP-13	RLFR DL Box Include	Include	/WEB-INF/shopping-content/globalCMSShoppingSpot.jsp	DL Box CMS Template
+************************************************************************************************************
+
+Secperf url per.eur.gspt.net
+
+weblogic console username: wladmin password : secperf123
+
+http://tumiuk.perf.eur.gspt.net/cache/index.jsp
+
+********************************************************************************************
+
+
+Useful Information By OMAR for 404 error after installing srm:
+
+[root@euststapp01 WEB-INF]# pwd
+/gsice/domains/eustst01/applications/trupt/gsi-trus-pt-webstore-war/WEB-INF
+Omar Haroon: you go here
+Omar Haroon: then open up weblogic.xml
+Omar Haroon:    <virtual-directory-mapping>
+    <local-path>/gsice/content/eustst01/gsi/trupt</local-path>
+         url-pattern>/*</url-pattern>
+  </virtual-directory-mapping>
+Omar Haroon: that is what we are looking for
+Omar Haroon:      <local-path>/gsice/content/eustst01/gsi/trupt</local-path>
+Omar Haroon: the above line was tokenized
+Omar Haroon: so i put the actual path where the content exists
+Omar Haroon: like you see above
+Omar Haroon: you need to either hup the instance
+Omar Haroon: or stop and start the trupt build in weblogic console
+Omar Haroon: and it should come up
+
+
+
+
+################################################################################3
+
+ eusuatapp02.eur.gspt.net-root: pwd
+/gsice/domains/eusuat02/servers/eusuat02_srm2_eusuatapp02_1
+eusuatapp02.eur.gspt.net-root: cd tmp/
+eusuatapp02.eur.gspt.net-root: ls
+eusuat02_srm2_eusuatapp02_1.lok  WebServiceUtils.ser  _WL_internal  _WL_user
+eusuatapp02.eur.gspt.net-root: rm -rf _WL_internal _WL_user
+eusuatapp02.eur.gspt.net-root: rm eusuat02_srm2_eusuatapp02_1.lok
+rm: remove regular empty file `eusuat02_srm2_eusuatapp02_1.lok'? y
+Bhaskar Godavarthi: killjava eusuat02_admin (wait until it started in RUNNING Mode)
+
+Then stop/start the store in deployments in WL Console OR just hup the instance on app server.
+Bhaskar Godavarthi: Make a note of it
+Bhaskar Godavarthi is typing...
+
+
+
+###################################################3333
+
+attribute for header...eDialogEmailPrefURL
+
+
+################33
+password for outlook Welcome2
+
+########################################3
+I updated the property file /install_srm_4.0/properties/master/na/uat06.properties and 
+
+
+#########################################################333
+FOR alerts related to sectstvrt01|verity server alerts
+
+
+This is all I do. I takes about 20 minutes to recover.
+
+ps aux | grep -i veri
+kill -9 23213 12041
+/etc/init.d/k2admin557 start
+service k2server557 start
+
+
+################################################
+
+http://confluence.tools.us.gspt.net/display/v11dev/Cartridge+Owners
+
+##########################################################3
+
+ http://jira.tools.us.gspt.net/secure/Dashboard.jspa
+
+#############################################################################################################
+
+sectst01 edit is out of disk space
+
+
+
+Warren Toyberg added a comment - 03/Feb/12 5:04 PM
+
+There is 3.5 gig in logs
+
+3.5G /var/opt/intershop/eserver11/share/system/log
+
+The error log is 2.1 gig
+isastst istst 2.1G Feb 3 16:42 error-sectstapp01.us.gspt.net-ES11-sectstap
+
+
+
+
+#########################################################################################################3
+
+
+Going forward, pleaes ask us to sync storeman panels instead of mentioning like “merge the data from sm_schedule table” which is confusing the resources and by looking at terminology they are thinking as it is a  DBA function.
+
+ 
+
+on Sectstapp03.gspt.net
+/gsice/standalone/storemanpush
+
+
+
+
+for looking into Database
+
+select * from sm_schdeule where panel_name like %CMCA%
+
+
+###################################################################################################################
+
+Do not use sync script (gsice/scripts/sync_tools) to sync content in SECPERF environment with any other environment because it syncs content in SECPERD. We have to modify the script to sync content in SECPERF.
+
+ 
+
+If you get a request to sync content in SECPERF with any other environment, then please do this.
+
+ 
+
+1)      Move current store directory to store.old in Secperf to save cms_widgets
+
+2)      Then go to Source location (for eg: /gsice/content/eustst01/gsi)
+
+3)      Then tar the desired directory in source location by using: tar -cvf STORE.tar ./STORE --exclude "cms_widgets" (replace STORE with actual store code what ever you are trying to sync) and it will exclude cms_widgets dir from tar.
+
+4)      Then move STORE.tar file to /gsice/content/secperf/gsi
+
+5)      Then extract the tar by using: tar -xvf STORE.tar
+
+6)      Then move cms_widgets from store.old to store.
+
+
+
+###############################################################################333
+
+Check in procedure for properties 
+
+[root@secuatapp03 properties]# svn ci -m "updated trusca uat01.properties"
+Adding         properties/trusca/uat01.properties
+Transmitting file data .svn: Commit failed (details follow):
+
+
+
+###################################################################################
+
+
+table for making entry for store_code
+
+select * from store_internet_address where internet_address like 'pagoda%'
+
+
+#########################################################################################
+
+
+http://dsp-uat06.uat.gsipartners.com/storeLocator/index.jsp
+ install-srm.sh deploy -Ddomain=uat06 -Dapp.properties=isl-dsp \
+-Dear.file=/home/build/webdev/dsp_srm/gsi-dsp-store-locator-web-1.0.0-b-8.war
+
+
+
+############################################################################################
+
+FRESH install for SRM
+
+Steps to follow:
+
+
+1)	Please do svn up to get newly added properties.
+
+2)	Install them as firstdeploy. For eg: For TST01, repeat this for cmca-dash and cmus-dash
+
+./install-srm.sh firstdeploy -Ddomain=tst01 -Dapp.properties=cmca \
+-Dear.file=/home/build/webdev/cmca_srm/gsi-clubmc-ca-webstore-ear-1.0.3.ear
+
+./install-srm.sh firstdeploy -Ddomain=tst01 -Dapp.properties=cmus \
+-Dear.file=/home/build/webdev/cmus_srm/gsi-clubmc-us-webstore-ear-1.0.3.ear
+
+3)	Once it fails (but directory will be created in applications), then create symlink (please take a look prerelease for symlinks) in applications for both stores for srm and srm-dash.
+
+4)	Then reinstall the builds without first (regular deploy, so remove first from above scripts), you will see successful installs.
+
+5)	Then go to config.xml and update entries manually (2 blocks for each stores, 1 for srm (cmus) and 2nd for srm-dash (cmus-dash)) for 2 stores. Please refer to tst07 config.xml.
+
+6)	Then Hup admin instance and make sure instance will be appeared in WL console.
+
+7)	Then sync content from tst06/merch to installed environment for both stores using /gsice/scripts/sync_tools. Once content synced, make sure you create cms_widgets directory.
+
+8)	Then hup SRM & SRM-DASH instances and then validate stores are coming fine and are active in WL console. As I mentioned apache WL Cluster/Port has been already updated for all 5 Environments.
+
+
+
+#############################################33333333333
+
+
+MQ
+
+runmqsc SECUATAP1QM1
+mq_connections SECUATAP1MQ1
+cd /var/mqm/qmgrs/SECUATAP1QM1/errors for logs
+
+
+
+
+#########################################################
+
+
+ClientiQ PDF
+
+http://confluence.gspt.net/download/attachments/37947441/GSI_Client_iQ_ChangeOrderUserGuide.pdf?version=9
+
+
+
+
+
+#################################################################################
+
+
+If campaigni are not going live,there might be a reason that BAD campaign is created e.q bad campaign name (should not include other that _)..in such case kill all Failed to publish campaigns ane then ask the to create new campaign
+
+
+
+
+#########################################################################################
+
+
+Delete server logs:
+
+ find /gsice/domains -maxdepth 5 -type f -name "*.log*" -mtime +2 -exec ls -l {} \;
+find /gsice/domains -maxdepth 5 -type f -name "*.log*" -mtime +2 -exec rm {} \;
+cd /gsice/scripts/test_del_dont_use/delOldApps
+
+
+######################################################
+######################################################
+
+
+select * from crypt_key_info where status in ('NEW','ACTIVE') order by start_time desc
+update crypt_key_info
+set start_time = '16-FEB-13', status='NEW'
+where STATUS='ACTIVE' and START_TIME='14-FEB-13'
+
+
+#########################################################
+
+To Check Database info from Portal
+http://csr.dev01.gspt.net/qm/index.jsp
+
+
+##########################################################
+
+FRESH install for SRM
+
+Steps to follow:
+
+
+1)      Please do svn up to get newly added properties.
+
+2)      Install them as firstdeploy. For eg: For TST01, repeat this for cmca-dash and cmus-dash
+
+./install-srm.sh firstdeploy -Ddomain=tst01 -Dapp.properties=cmca \
+-Dear.file=/home/build/webdev/cmca_srm/gsi-clubmc-ca-webstore-ear-1.0.3.ear
+
+./install-srm.sh firstdeploy -Ddomain=tst01 -Dapp.properties=cmus \
+-Dear.file=/home/build/webdev/cmus_srm/gsi-clubmc-us-webstore-ear-1.0.3.ear
+
+3)      Once it fails (but directory will be created in applications), then create symlink (please take a look prerelease for symlinks) in applications for both stores for srm and srm-dash.
+
+4)      Then reinstall the builds without first (regular deploy, so remove first from above scripts), you will see successful installs.
+
+5)      Then go to config.xml and update entries manually (2 blocks for each stores, 1 for srm (cmus) and 2nd for srm-dash (cmus-dash)) for 2 stores. Please refer to tst07 config.xml.
+
+6)      Then Hup admin instance and make sure instance will be appeared in WL console.
+
+7)      Then sync content from tst06/merch to installed environment for both stores using /gsice/scripts/sync_tools. Once content synced, make sure you create cms_widgets directory.
+
+8)      Then hup SRM & SRM-DASH instances and then validate stores are coming fine and are active in WL console. As I mentioned apache WL Cluster/Port has been already updated for all 5 Environments.
+
+######################################################################################################################################################
+######################################################################################################################################################
+
+
+For Password recovery in CATMAN & RTLC using database
+
+CATMAN --------------->  AUTH_USER
+RTLC-----------------------> SECURITY_USER
+
+username:rmanager
+Password:Rmanager1234
+
+
+######################################################################################################################################################
+######################################################################################################################################################
+
+
+SA Changes open a ticket to sa@gsiticket.gspt.net
+
+SA Team
+
+Kindly check in  the below updated apache changes for TRUSCA TST10 into CVS for both sectstweb01 and sectstweb02.
+
+
+WebLogicCluster 172.21.102.31:8012
+                PathPrepend /trusca
+                ConnectTimeoutSecs 35
+                ConnectRetrySecs 1
+                ErrorPage /busy.html        
+########################################################################################################################################################
+
+
+TSA category page search is not Avalable..try disabling the following attribute.
+enableSLI_Pixel 
+
+
+##########################################################################################################################################################
+
+For Promotions:
+
+UPDATE catalog_entry SET status = 'A', modified_date = SYSDATE WHERE catalog_entry_id =
+UPDATE catalog_entry SET status = 'A', modified_date = SYSDATE WHERE status = 'APP'
+==================================================================================================================
+For CMS Campaigns:
+
+select * from cms_campaign where campaign_name like 'NAME%'
+
+update cms_campaign set status ='A' where campaign_id =
+
+######################################################################################################################################################
+######################################################################################################################################################
+
+MERGE Status
+
+
+http://secprdtlsdb01.gspt.net:4889/pls/dbmonitor/dbmon_jst.runs_table
+
+
+####################################################################################################################################################
+####################################################################################################################################################
+
+If the orders were in TEST status that means that the merge had either not finished meaning the post merge script hadn’t 
+run yet or the post merge script just didn’t run. Either way those orders are no good.  Any order placed before the merge finishes will be in test status.
+
+
+#####################################################################################################################################################
+
+
+URL to Check Production build for SRM
+
+http://trude.lvsprd1.gsipartners.com/system/environmentInfo.jsp
+http://cmca.slcprd1.gsipartners.com/system/environmentInfo.jsp
+
+
+##################################################################################################################################################################
+
+
+
+
+find /gsice/domains/tst05/applications/ -name "gsi.properties" -exec sed -i 's/rpmanager_server=10.48.173.30/rpmanager_server=lvsdeviaweb-vip.gspt.net/' {} \;
+
+####################################################################################################################################################################
+http://devsvn.gspt.net/svn/sharedservices/install_srm/branches/sec/ 
+http://devsvn.gspt.net/svn/sharedservices/install_srm/trunk
+
+sudo ./install-srm.sh deploy -Ddomain=proj01 -Dapp.properties=cmca -Dear.file=http://devsvn.gspt.net/nexus/content/repositories/legacy-releases/gsicommerce/gsi-clubmc-ca-webstore-ear/3.3.1/gsi-clubmc-ca-webstore-ear-3.3.1.ear -Dcontent.repo=http://devsvn.gspt.net/svn/partnercontent/clubmc/ca/branches/FR_022644/
+
+##################################################################################################################################################################
+##################################################################################################################################################################
+
+
+DASHBORAD URL NEXUS
+nexus dashboard
+
+http://lvststapp07.gspt.net:7001/webfms/index.html
+
+##################################################################################################################################################################
+
+
+CATMAN for LDT01
+
+http://dev.lvsldt01.gspt.net/catmanJsp/CTdisplayCatManLogin.jsp
+
+
+##################################################################################################################################################################
+
+
+
+Passowrd for Ebay: J3s7C3Mt?
+
+##################################################################################################################################################################
+##################################################################################################################################################################
+
+Password for USER WS_15_6---> WS_15_6
+
+All  the DEv environments uses the same databases, hence generic user ofr DB is not used and instead build specific user is created.
+
+
+##################################################################################################################################################################
+##################################################################################################################################################################
+
+Apache Logs
+/var/squid/weblogs/active
+
+##################################################################################################################################################################
+
+To Flush all Password for Shared Drives
+
+To delete all network authentication
+
+C:\> net use * /d
+To view current network connection
+
+C:\> net use 
+
+###############################################################################################################################################################3
+
+
+
+
+
+
