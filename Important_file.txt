@@ -2,7 +2,7 @@ C:\WINDOWS\system32\drivers\etc\hosts
 
 
 
-SRM INstall
+SRM Install
 
 We started getting SRM 4.0 installs.
 
@@ -184,7 +184,7 @@ isastst istst 2.1G Feb 3 16:42 error-sectstapp01.us.gspt.net-ES11-sectstap
 #########################################################################################################3
 
 
-Going forward, pleaes ask us to sync storeman panels instead of mentioning like ìmerge the data from sm_schedule tableî which is confusing the resources and by looking at terminology they are thinking as it is a  DBA function.
+Going forward, pleaes ask us to sync storeman panels instead of mentioning like ‚Äúmerge the data from sm_schedule table‚Äù which is confusing the resources and by looking at terminology they are thinking as it is a  DBA function.
 
  
 
@@ -428,8 +428,8 @@ http://secprdtlsdb01.gspt.net:4889/pls/dbmonitor/dbmon_jst.runs_table
 ####################################################################################################################################################
 ####################################################################################################################################################
 
-If the orders were in TEST status that means that the merge had either not finished meaning the post merge script hadnít 
-run yet or the post merge script just didnít run. Either way those orders are no good.  Any order placed before the merge finishes will be in test status.
+If the orders were in TEST status that means that the merge had either not finished meaning the post merge script hadn‚Äôt 
+run yet or the post merge script just didn‚Äôt run. Either way those orders are no good.  Any order placed before the merge finishes will be in test status.
 
 
 #####################################################################################################################################################
